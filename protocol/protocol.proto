@@ -4,7 +4,7 @@ option go_package = "github.com/bravado-dev/bravura/protocol";
 
 package protocol;
 
-service BravuraService {
+service EscobariaService {
   // To forward 'git upload-pack' to silver-backend for SSH sessions
   // First pack stdin is nil
   rpc UploadPack(stream UploadPackRequest) returns (stream UploadPackResponse);

@@ -18,67 +18,67 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// BravuraServiceClient is the client API for BravuraService service.
+// EscobariaServiceClient is the client API for EscobariaService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type BravuraServiceClient interface {
+type EscobariaServiceClient interface {
 	// To forward 'git upload-pack' to silver-backend for SSH sessions
 	// First pack stdin is nil
-	UploadPack(ctx context.Context, opts ...grpc.CallOption) (BravuraService_UploadPackClient, error)
+	UploadPack(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_UploadPackClient, error)
 	// To forward 'git receive-pack' to silver-backend for SSH sessions
 	// First pack stdin is nil
-	ReceivePack(ctx context.Context, opts ...grpc.CallOption) (BravuraService_ReceivePackClient, error)
+	ReceivePack(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_ReceivePackClient, error)
 	// To forward 'git upload-archive' to silver-backend for SSH sessions
 	// First pack stdin is nil
-	UploadArchive(ctx context.Context, opts ...grpc.CallOption) (BravuraService_UploadArchiveClient, error)
+	UploadArchive(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_UploadArchiveClient, error)
 	// The response body for GET /info/refs?service=git-upload-pack
 	// Will be invoked when the user executes a `git fetch`, meaning the server
 	// will upload the packs to that user. The user doesn't upload new objects.
-	InfoRefsUploadPack(ctx context.Context, in *InfoRefsRequest, opts ...grpc.CallOption) (BravuraService_InfoRefsUploadPackClient, error)
+	InfoRefsUploadPack(ctx context.Context, in *InfoRefsRequest, opts ...grpc.CallOption) (EscobariaService_InfoRefsUploadPackClient, error)
 	// The response body for GET /info/refs?service=git-receive-pack
 	// Will be invoked when the user executes a `git push`, but only advertises
 	// references to the user.
-	InfoRefsReceivePack(ctx context.Context, in *InfoRefsRequest, opts ...grpc.CallOption) (BravuraService_InfoRefsReceivePackClient, error)
+	InfoRefsReceivePack(ctx context.Context, in *InfoRefsRequest, opts ...grpc.CallOption) (EscobariaService_InfoRefsReceivePackClient, error)
 	// Request and response body for POST /upload-pack
 	// First pack stdin is nil
-	PostUploadPack(ctx context.Context, opts ...grpc.CallOption) (BravuraService_PostUploadPackClient, error)
+	PostUploadPack(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_PostUploadPackClient, error)
 	// Request and response body for POST /receive-pack
 	// First pack stdin is nil
-	PostReceivePack(ctx context.Context, opts ...grpc.CallOption) (BravuraService_PostReceivePackClient, error)
+	PostReceivePack(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_PostReceivePackClient, error)
 }
 
-type bravuraServiceClient struct {
+type escobariaServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewBravuraServiceClient(cc grpc.ClientConnInterface) BravuraServiceClient {
-	return &bravuraServiceClient{cc}
+func NewEscobariaServiceClient(cc grpc.ClientConnInterface) EscobariaServiceClient {
+	return &escobariaServiceClient{cc}
 }
 
-func (c *bravuraServiceClient) UploadPack(ctx context.Context, opts ...grpc.CallOption) (BravuraService_UploadPackClient, error) {
-	stream, err := c.cc.NewStream(ctx, &BravuraService_ServiceDesc.Streams[0], "/protocol.BravuraService/UploadPack", opts...)
+func (c *escobariaServiceClient) UploadPack(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_UploadPackClient, error) {
+	stream, err := c.cc.NewStream(ctx, &EscobariaService_ServiceDesc.Streams[0], "/protocol.EscobariaService/UploadPack", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &bravuraServiceUploadPackClient{stream}
+	x := &escobariaServiceUploadPackClient{stream}
 	return x, nil
 }
 
-type BravuraService_UploadPackClient interface {
+type EscobariaService_UploadPackClient interface {
 	Send(*UploadPackRequest) error
 	Recv() (*UploadPackResponse, error)
 	grpc.ClientStream
 }
 
-type bravuraServiceUploadPackClient struct {
+type escobariaServiceUploadPackClient struct {
 	grpc.ClientStream
 }
 
-func (x *bravuraServiceUploadPackClient) Send(m *UploadPackRequest) error {
+func (x *escobariaServiceUploadPackClient) Send(m *UploadPackRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *bravuraServiceUploadPackClient) Recv() (*UploadPackResponse, error) {
+func (x *escobariaServiceUploadPackClient) Recv() (*UploadPackResponse, error) {
 	m := new(UploadPackResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -86,30 +86,30 @@ func (x *bravuraServiceUploadPackClient) Recv() (*UploadPackResponse, error) {
 	return m, nil
 }
 
-func (c *bravuraServiceClient) ReceivePack(ctx context.Context, opts ...grpc.CallOption) (BravuraService_ReceivePackClient, error) {
-	stream, err := c.cc.NewStream(ctx, &BravuraService_ServiceDesc.Streams[1], "/protocol.BravuraService/ReceivePack", opts...)
+func (c *escobariaServiceClient) ReceivePack(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_ReceivePackClient, error) {
+	stream, err := c.cc.NewStream(ctx, &EscobariaService_ServiceDesc.Streams[1], "/protocol.EscobariaService/ReceivePack", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &bravuraServiceReceivePackClient{stream}
+	x := &escobariaServiceReceivePackClient{stream}
 	return x, nil
 }
 
-type BravuraService_ReceivePackClient interface {
+type EscobariaService_ReceivePackClient interface {
 	Send(*ReceivePackRequest) error
 	Recv() (*ReceivePackResponse, error)
 	grpc.ClientStream
 }
 
-type bravuraServiceReceivePackClient struct {
+type escobariaServiceReceivePackClient struct {
 	grpc.ClientStream
 }
 
-func (x *bravuraServiceReceivePackClient) Send(m *ReceivePackRequest) error {
+func (x *escobariaServiceReceivePackClient) Send(m *ReceivePackRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *bravuraServiceReceivePackClient) Recv() (*ReceivePackResponse, error) {
+func (x *escobariaServiceReceivePackClient) Recv() (*ReceivePackResponse, error) {
 	m := new(ReceivePackResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -117,30 +117,30 @@ func (x *bravuraServiceReceivePackClient) Recv() (*ReceivePackResponse, error) {
 	return m, nil
 }
 
-func (c *bravuraServiceClient) UploadArchive(ctx context.Context, opts ...grpc.CallOption) (BravuraService_UploadArchiveClient, error) {
-	stream, err := c.cc.NewStream(ctx, &BravuraService_ServiceDesc.Streams[2], "/protocol.BravuraService/UploadArchive", opts...)
+func (c *escobariaServiceClient) UploadArchive(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_UploadArchiveClient, error) {
+	stream, err := c.cc.NewStream(ctx, &EscobariaService_ServiceDesc.Streams[2], "/protocol.EscobariaService/UploadArchive", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &bravuraServiceUploadArchiveClient{stream}
+	x := &escobariaServiceUploadArchiveClient{stream}
 	return x, nil
 }
 
-type BravuraService_UploadArchiveClient interface {
+type EscobariaService_UploadArchiveClient interface {
 	Send(*UploadArchiveRequest) error
 	Recv() (*UploadArchiveResponse, error)
 	grpc.ClientStream
 }
 
-type bravuraServiceUploadArchiveClient struct {
+type escobariaServiceUploadArchiveClient struct {
 	grpc.ClientStream
 }
 
-func (x *bravuraServiceUploadArchiveClient) Send(m *UploadArchiveRequest) error {
+func (x *escobariaServiceUploadArchiveClient) Send(m *UploadArchiveRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *bravuraServiceUploadArchiveClient) Recv() (*UploadArchiveResponse, error) {
+func (x *escobariaServiceUploadArchiveClient) Recv() (*UploadArchiveResponse, error) {
 	m := new(UploadArchiveResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -148,12 +148,12 @@ func (x *bravuraServiceUploadArchiveClient) Recv() (*UploadArchiveResponse, erro
 	return m, nil
 }
 
-func (c *bravuraServiceClient) InfoRefsUploadPack(ctx context.Context, in *InfoRefsRequest, opts ...grpc.CallOption) (BravuraService_InfoRefsUploadPackClient, error) {
-	stream, err := c.cc.NewStream(ctx, &BravuraService_ServiceDesc.Streams[3], "/protocol.BravuraService/InfoRefsUploadPack", opts...)
+func (c *escobariaServiceClient) InfoRefsUploadPack(ctx context.Context, in *InfoRefsRequest, opts ...grpc.CallOption) (EscobariaService_InfoRefsUploadPackClient, error) {
+	stream, err := c.cc.NewStream(ctx, &EscobariaService_ServiceDesc.Streams[3], "/protocol.EscobariaService/InfoRefsUploadPack", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &bravuraServiceInfoRefsUploadPackClient{stream}
+	x := &escobariaServiceInfoRefsUploadPackClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -163,16 +163,16 @@ func (c *bravuraServiceClient) InfoRefsUploadPack(ctx context.Context, in *InfoR
 	return x, nil
 }
 
-type BravuraService_InfoRefsUploadPackClient interface {
+type EscobariaService_InfoRefsUploadPackClient interface {
 	Recv() (*InfoRefsResponse, error)
 	grpc.ClientStream
 }
 
-type bravuraServiceInfoRefsUploadPackClient struct {
+type escobariaServiceInfoRefsUploadPackClient struct {
 	grpc.ClientStream
 }
 
-func (x *bravuraServiceInfoRefsUploadPackClient) Recv() (*InfoRefsResponse, error) {
+func (x *escobariaServiceInfoRefsUploadPackClient) Recv() (*InfoRefsResponse, error) {
 	m := new(InfoRefsResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -180,12 +180,12 @@ func (x *bravuraServiceInfoRefsUploadPackClient) Recv() (*InfoRefsResponse, erro
 	return m, nil
 }
 
-func (c *bravuraServiceClient) InfoRefsReceivePack(ctx context.Context, in *InfoRefsRequest, opts ...grpc.CallOption) (BravuraService_InfoRefsReceivePackClient, error) {
-	stream, err := c.cc.NewStream(ctx, &BravuraService_ServiceDesc.Streams[4], "/protocol.BravuraService/InfoRefsReceivePack", opts...)
+func (c *escobariaServiceClient) InfoRefsReceivePack(ctx context.Context, in *InfoRefsRequest, opts ...grpc.CallOption) (EscobariaService_InfoRefsReceivePackClient, error) {
+	stream, err := c.cc.NewStream(ctx, &EscobariaService_ServiceDesc.Streams[4], "/protocol.EscobariaService/InfoRefsReceivePack", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &bravuraServiceInfoRefsReceivePackClient{stream}
+	x := &escobariaServiceInfoRefsReceivePackClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -195,16 +195,16 @@ func (c *bravuraServiceClient) InfoRefsReceivePack(ctx context.Context, in *Info
 	return x, nil
 }
 
-type BravuraService_InfoRefsReceivePackClient interface {
+type EscobariaService_InfoRefsReceivePackClient interface {
 	Recv() (*InfoRefsResponse, error)
 	grpc.ClientStream
 }
 
-type bravuraServiceInfoRefsReceivePackClient struct {
+type escobariaServiceInfoRefsReceivePackClient struct {
 	grpc.ClientStream
 }
 
-func (x *bravuraServiceInfoRefsReceivePackClient) Recv() (*InfoRefsResponse, error) {
+func (x *escobariaServiceInfoRefsReceivePackClient) Recv() (*InfoRefsResponse, error) {
 	m := new(InfoRefsResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -212,30 +212,30 @@ func (x *bravuraServiceInfoRefsReceivePackClient) Recv() (*InfoRefsResponse, err
 	return m, nil
 }
 
-func (c *bravuraServiceClient) PostUploadPack(ctx context.Context, opts ...grpc.CallOption) (BravuraService_PostUploadPackClient, error) {
-	stream, err := c.cc.NewStream(ctx, &BravuraService_ServiceDesc.Streams[5], "/protocol.BravuraService/PostUploadPack", opts...)
+func (c *escobariaServiceClient) PostUploadPack(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_PostUploadPackClient, error) {
+	stream, err := c.cc.NewStream(ctx, &EscobariaService_ServiceDesc.Streams[5], "/protocol.EscobariaService/PostUploadPack", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &bravuraServicePostUploadPackClient{stream}
+	x := &escobariaServicePostUploadPackClient{stream}
 	return x, nil
 }
 
-type BravuraService_PostUploadPackClient interface {
+type EscobariaService_PostUploadPackClient interface {
 	Send(*PostUploadPackRequest) error
 	Recv() (*PostUploadPackResponse, error)
 	grpc.ClientStream
 }
 
-type bravuraServicePostUploadPackClient struct {
+type escobariaServicePostUploadPackClient struct {
 	grpc.ClientStream
 }
 
-func (x *bravuraServicePostUploadPackClient) Send(m *PostUploadPackRequest) error {
+func (x *escobariaServicePostUploadPackClient) Send(m *PostUploadPackRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *bravuraServicePostUploadPackClient) Recv() (*PostUploadPackResponse, error) {
+func (x *escobariaServicePostUploadPackClient) Recv() (*PostUploadPackResponse, error) {
 	m := new(PostUploadPackResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -243,30 +243,30 @@ func (x *bravuraServicePostUploadPackClient) Recv() (*PostUploadPackResponse, er
 	return m, nil
 }
 
-func (c *bravuraServiceClient) PostReceivePack(ctx context.Context, opts ...grpc.CallOption) (BravuraService_PostReceivePackClient, error) {
-	stream, err := c.cc.NewStream(ctx, &BravuraService_ServiceDesc.Streams[6], "/protocol.BravuraService/PostReceivePack", opts...)
+func (c *escobariaServiceClient) PostReceivePack(ctx context.Context, opts ...grpc.CallOption) (EscobariaService_PostReceivePackClient, error) {
+	stream, err := c.cc.NewStream(ctx, &EscobariaService_ServiceDesc.Streams[6], "/protocol.EscobariaService/PostReceivePack", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &bravuraServicePostReceivePackClient{stream}
+	x := &escobariaServicePostReceivePackClient{stream}
 	return x, nil
 }
 
-type BravuraService_PostReceivePackClient interface {
+type EscobariaService_PostReceivePackClient interface {
 	Send(*PostReceivePackRequest) error
 	Recv() (*PostReceivePackResponse, error)
 	grpc.ClientStream
 }
 
-type bravuraServicePostReceivePackClient struct {
+type escobariaServicePostReceivePackClient struct {
 	grpc.ClientStream
 }
 
-func (x *bravuraServicePostReceivePackClient) Send(m *PostReceivePackRequest) error {
+func (x *escobariaServicePostReceivePackClient) Send(m *PostReceivePackRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *bravuraServicePostReceivePackClient) Recv() (*PostReceivePackResponse, error) {
+func (x *escobariaServicePostReceivePackClient) Recv() (*PostReceivePackResponse, error) {
 	m := new(PostReceivePackResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -274,91 +274,91 @@ func (x *bravuraServicePostReceivePackClient) Recv() (*PostReceivePackResponse, 
 	return m, nil
 }
 
-// BravuraServiceServer is the server API for BravuraService service.
-// All implementations should embed UnimplementedBravuraServiceServer
+// EscobariaServiceServer is the server API for EscobariaService service.
+// All implementations should embed UnimplementedEscobariaServiceServer
 // for forward compatibility
-type BravuraServiceServer interface {
+type EscobariaServiceServer interface {
 	// To forward 'git upload-pack' to silver-backend for SSH sessions
 	// First pack stdin is nil
-	UploadPack(BravuraService_UploadPackServer) error
+	UploadPack(EscobariaService_UploadPackServer) error
 	// To forward 'git receive-pack' to silver-backend for SSH sessions
 	// First pack stdin is nil
-	ReceivePack(BravuraService_ReceivePackServer) error
+	ReceivePack(EscobariaService_ReceivePackServer) error
 	// To forward 'git upload-archive' to silver-backend for SSH sessions
 	// First pack stdin is nil
-	UploadArchive(BravuraService_UploadArchiveServer) error
+	UploadArchive(EscobariaService_UploadArchiveServer) error
 	// The response body for GET /info/refs?service=git-upload-pack
 	// Will be invoked when the user executes a `git fetch`, meaning the server
 	// will upload the packs to that user. The user doesn't upload new objects.
-	InfoRefsUploadPack(*InfoRefsRequest, BravuraService_InfoRefsUploadPackServer) error
+	InfoRefsUploadPack(*InfoRefsRequest, EscobariaService_InfoRefsUploadPackServer) error
 	// The response body for GET /info/refs?service=git-receive-pack
 	// Will be invoked when the user executes a `git push`, but only advertises
 	// references to the user.
-	InfoRefsReceivePack(*InfoRefsRequest, BravuraService_InfoRefsReceivePackServer) error
+	InfoRefsReceivePack(*InfoRefsRequest, EscobariaService_InfoRefsReceivePackServer) error
 	// Request and response body for POST /upload-pack
 	// First pack stdin is nil
-	PostUploadPack(BravuraService_PostUploadPackServer) error
+	PostUploadPack(EscobariaService_PostUploadPackServer) error
 	// Request and response body for POST /receive-pack
 	// First pack stdin is nil
-	PostReceivePack(BravuraService_PostReceivePackServer) error
+	PostReceivePack(EscobariaService_PostReceivePackServer) error
 }
 
-// UnimplementedBravuraServiceServer should be embedded to have forward compatible implementations.
-type UnimplementedBravuraServiceServer struct {
+// UnimplementedEscobariaServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedEscobariaServiceServer struct {
 }
 
-func (UnimplementedBravuraServiceServer) UploadPack(BravuraService_UploadPackServer) error {
+func (UnimplementedEscobariaServiceServer) UploadPack(EscobariaService_UploadPackServer) error {
 	return status.Errorf(codes.Unimplemented, "method UploadPack not implemented")
 }
-func (UnimplementedBravuraServiceServer) ReceivePack(BravuraService_ReceivePackServer) error {
+func (UnimplementedEscobariaServiceServer) ReceivePack(EscobariaService_ReceivePackServer) error {
 	return status.Errorf(codes.Unimplemented, "method ReceivePack not implemented")
 }
-func (UnimplementedBravuraServiceServer) UploadArchive(BravuraService_UploadArchiveServer) error {
+func (UnimplementedEscobariaServiceServer) UploadArchive(EscobariaService_UploadArchiveServer) error {
 	return status.Errorf(codes.Unimplemented, "method UploadArchive not implemented")
 }
-func (UnimplementedBravuraServiceServer) InfoRefsUploadPack(*InfoRefsRequest, BravuraService_InfoRefsUploadPackServer) error {
+func (UnimplementedEscobariaServiceServer) InfoRefsUploadPack(*InfoRefsRequest, EscobariaService_InfoRefsUploadPackServer) error {
 	return status.Errorf(codes.Unimplemented, "method InfoRefsUploadPack not implemented")
 }
-func (UnimplementedBravuraServiceServer) InfoRefsReceivePack(*InfoRefsRequest, BravuraService_InfoRefsReceivePackServer) error {
+func (UnimplementedEscobariaServiceServer) InfoRefsReceivePack(*InfoRefsRequest, EscobariaService_InfoRefsReceivePackServer) error {
 	return status.Errorf(codes.Unimplemented, "method InfoRefsReceivePack not implemented")
 }
-func (UnimplementedBravuraServiceServer) PostUploadPack(BravuraService_PostUploadPackServer) error {
+func (UnimplementedEscobariaServiceServer) PostUploadPack(EscobariaService_PostUploadPackServer) error {
 	return status.Errorf(codes.Unimplemented, "method PostUploadPack not implemented")
 }
-func (UnimplementedBravuraServiceServer) PostReceivePack(BravuraService_PostReceivePackServer) error {
+func (UnimplementedEscobariaServiceServer) PostReceivePack(EscobariaService_PostReceivePackServer) error {
 	return status.Errorf(codes.Unimplemented, "method PostReceivePack not implemented")
 }
 
-// UnsafeBravuraServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to BravuraServiceServer will
+// UnsafeEscobariaServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to EscobariaServiceServer will
 // result in compilation errors.
-type UnsafeBravuraServiceServer interface {
-	mustEmbedUnimplementedBravuraServiceServer()
+type UnsafeEscobariaServiceServer interface {
+	mustEmbedUnimplementedEscobariaServiceServer()
 }
 
-func RegisterBravuraServiceServer(s grpc.ServiceRegistrar, srv BravuraServiceServer) {
-	s.RegisterService(&BravuraService_ServiceDesc, srv)
+func RegisterEscobariaServiceServer(s grpc.ServiceRegistrar, srv EscobariaServiceServer) {
+	s.RegisterService(&EscobariaService_ServiceDesc, srv)
 }
 
-func _BravuraService_UploadPack_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(BravuraServiceServer).UploadPack(&bravuraServiceUploadPackServer{stream})
+func _EscobariaService_UploadPack_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(EscobariaServiceServer).UploadPack(&escobariaServiceUploadPackServer{stream})
 }
 
-type BravuraService_UploadPackServer interface {
+type EscobariaService_UploadPackServer interface {
 	Send(*UploadPackResponse) error
 	Recv() (*UploadPackRequest, error)
 	grpc.ServerStream
 }
 
-type bravuraServiceUploadPackServer struct {
+type escobariaServiceUploadPackServer struct {
 	grpc.ServerStream
 }
 
-func (x *bravuraServiceUploadPackServer) Send(m *UploadPackResponse) error {
+func (x *escobariaServiceUploadPackServer) Send(m *UploadPackResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *bravuraServiceUploadPackServer) Recv() (*UploadPackRequest, error) {
+func (x *escobariaServiceUploadPackServer) Recv() (*UploadPackRequest, error) {
 	m := new(UploadPackRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -366,25 +366,25 @@ func (x *bravuraServiceUploadPackServer) Recv() (*UploadPackRequest, error) {
 	return m, nil
 }
 
-func _BravuraService_ReceivePack_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(BravuraServiceServer).ReceivePack(&bravuraServiceReceivePackServer{stream})
+func _EscobariaService_ReceivePack_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(EscobariaServiceServer).ReceivePack(&escobariaServiceReceivePackServer{stream})
 }
 
-type BravuraService_ReceivePackServer interface {
+type EscobariaService_ReceivePackServer interface {
 	Send(*ReceivePackResponse) error
 	Recv() (*ReceivePackRequest, error)
 	grpc.ServerStream
 }
 
-type bravuraServiceReceivePackServer struct {
+type escobariaServiceReceivePackServer struct {
 	grpc.ServerStream
 }
 
-func (x *bravuraServiceReceivePackServer) Send(m *ReceivePackResponse) error {
+func (x *escobariaServiceReceivePackServer) Send(m *ReceivePackResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *bravuraServiceReceivePackServer) Recv() (*ReceivePackRequest, error) {
+func (x *escobariaServiceReceivePackServer) Recv() (*ReceivePackRequest, error) {
 	m := new(ReceivePackRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -392,25 +392,25 @@ func (x *bravuraServiceReceivePackServer) Recv() (*ReceivePackRequest, error) {
 	return m, nil
 }
 
-func _BravuraService_UploadArchive_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(BravuraServiceServer).UploadArchive(&bravuraServiceUploadArchiveServer{stream})
+func _EscobariaService_UploadArchive_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(EscobariaServiceServer).UploadArchive(&escobariaServiceUploadArchiveServer{stream})
 }
 
-type BravuraService_UploadArchiveServer interface {
+type EscobariaService_UploadArchiveServer interface {
 	Send(*UploadArchiveResponse) error
 	Recv() (*UploadArchiveRequest, error)
 	grpc.ServerStream
 }
 
-type bravuraServiceUploadArchiveServer struct {
+type escobariaServiceUploadArchiveServer struct {
 	grpc.ServerStream
 }
 
-func (x *bravuraServiceUploadArchiveServer) Send(m *UploadArchiveResponse) error {
+func (x *escobariaServiceUploadArchiveServer) Send(m *UploadArchiveResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *bravuraServiceUploadArchiveServer) Recv() (*UploadArchiveRequest, error) {
+func (x *escobariaServiceUploadArchiveServer) Recv() (*UploadArchiveRequest, error) {
 	m := new(UploadArchiveRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -418,67 +418,67 @@ func (x *bravuraServiceUploadArchiveServer) Recv() (*UploadArchiveRequest, error
 	return m, nil
 }
 
-func _BravuraService_InfoRefsUploadPack_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _EscobariaService_InfoRefsUploadPack_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(InfoRefsRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(BravuraServiceServer).InfoRefsUploadPack(m, &bravuraServiceInfoRefsUploadPackServer{stream})
+	return srv.(EscobariaServiceServer).InfoRefsUploadPack(m, &escobariaServiceInfoRefsUploadPackServer{stream})
 }
 
-type BravuraService_InfoRefsUploadPackServer interface {
+type EscobariaService_InfoRefsUploadPackServer interface {
 	Send(*InfoRefsResponse) error
 	grpc.ServerStream
 }
 
-type bravuraServiceInfoRefsUploadPackServer struct {
+type escobariaServiceInfoRefsUploadPackServer struct {
 	grpc.ServerStream
 }
 
-func (x *bravuraServiceInfoRefsUploadPackServer) Send(m *InfoRefsResponse) error {
+func (x *escobariaServiceInfoRefsUploadPackServer) Send(m *InfoRefsResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _BravuraService_InfoRefsReceivePack_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _EscobariaService_InfoRefsReceivePack_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(InfoRefsRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(BravuraServiceServer).InfoRefsReceivePack(m, &bravuraServiceInfoRefsReceivePackServer{stream})
+	return srv.(EscobariaServiceServer).InfoRefsReceivePack(m, &escobariaServiceInfoRefsReceivePackServer{stream})
 }
 
-type BravuraService_InfoRefsReceivePackServer interface {
+type EscobariaService_InfoRefsReceivePackServer interface {
 	Send(*InfoRefsResponse) error
 	grpc.ServerStream
 }
 
-type bravuraServiceInfoRefsReceivePackServer struct {
+type escobariaServiceInfoRefsReceivePackServer struct {
 	grpc.ServerStream
 }
 
-func (x *bravuraServiceInfoRefsReceivePackServer) Send(m *InfoRefsResponse) error {
+func (x *escobariaServiceInfoRefsReceivePackServer) Send(m *InfoRefsResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _BravuraService_PostUploadPack_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(BravuraServiceServer).PostUploadPack(&bravuraServicePostUploadPackServer{stream})
+func _EscobariaService_PostUploadPack_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(EscobariaServiceServer).PostUploadPack(&escobariaServicePostUploadPackServer{stream})
 }
 
-type BravuraService_PostUploadPackServer interface {
+type EscobariaService_PostUploadPackServer interface {
 	Send(*PostUploadPackResponse) error
 	Recv() (*PostUploadPackRequest, error)
 	grpc.ServerStream
 }
 
-type bravuraServicePostUploadPackServer struct {
+type escobariaServicePostUploadPackServer struct {
 	grpc.ServerStream
 }
 
-func (x *bravuraServicePostUploadPackServer) Send(m *PostUploadPackResponse) error {
+func (x *escobariaServicePostUploadPackServer) Send(m *PostUploadPackResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *bravuraServicePostUploadPackServer) Recv() (*PostUploadPackRequest, error) {
+func (x *escobariaServicePostUploadPackServer) Recv() (*PostUploadPackRequest, error) {
 	m := new(PostUploadPackRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -486,25 +486,25 @@ func (x *bravuraServicePostUploadPackServer) Recv() (*PostUploadPackRequest, err
 	return m, nil
 }
 
-func _BravuraService_PostReceivePack_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(BravuraServiceServer).PostReceivePack(&bravuraServicePostReceivePackServer{stream})
+func _EscobariaService_PostReceivePack_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(EscobariaServiceServer).PostReceivePack(&escobariaServicePostReceivePackServer{stream})
 }
 
-type BravuraService_PostReceivePackServer interface {
+type EscobariaService_PostReceivePackServer interface {
 	Send(*PostReceivePackResponse) error
 	Recv() (*PostReceivePackRequest, error)
 	grpc.ServerStream
 }
 
-type bravuraServicePostReceivePackServer struct {
+type escobariaServicePostReceivePackServer struct {
 	grpc.ServerStream
 }
 
-func (x *bravuraServicePostReceivePackServer) Send(m *PostReceivePackResponse) error {
+func (x *escobariaServicePostReceivePackServer) Send(m *PostReceivePackResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *bravuraServicePostReceivePackServer) Recv() (*PostReceivePackRequest, error) {
+func (x *escobariaServicePostReceivePackServer) Recv() (*PostReceivePackRequest, error) {
 	m := new(PostReceivePackRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -512,51 +512,51 @@ func (x *bravuraServicePostReceivePackServer) Recv() (*PostReceivePackRequest, e
 	return m, nil
 }
 
-// BravuraService_ServiceDesc is the grpc.ServiceDesc for BravuraService service.
+// EscobariaService_ServiceDesc is the grpc.ServiceDesc for EscobariaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var BravuraService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "protocol.BravuraService",
-	HandlerType: (*BravuraServiceServer)(nil),
+var EscobariaService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "protocol.EscobariaService",
+	HandlerType: (*EscobariaServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "UploadPack",
-			Handler:       _BravuraService_UploadPack_Handler,
+			Handler:       _EscobariaService_UploadPack_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},
 		{
 			StreamName:    "ReceivePack",
-			Handler:       _BravuraService_ReceivePack_Handler,
+			Handler:       _EscobariaService_ReceivePack_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},
 		{
 			StreamName:    "UploadArchive",
-			Handler:       _BravuraService_UploadArchive_Handler,
+			Handler:       _EscobariaService_UploadArchive_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},
 		{
 			StreamName:    "InfoRefsUploadPack",
-			Handler:       _BravuraService_InfoRefsUploadPack_Handler,
+			Handler:       _EscobariaService_InfoRefsUploadPack_Handler,
 			ServerStreams: true,
 		},
 		{
 			StreamName:    "InfoRefsReceivePack",
-			Handler:       _BravuraService_InfoRefsReceivePack_Handler,
+			Handler:       _EscobariaService_InfoRefsReceivePack_Handler,
 			ServerStreams: true,
 		},
 		{
 			StreamName:    "PostUploadPack",
-			Handler:       _BravuraService_PostUploadPack_Handler,
+			Handler:       _EscobariaService_PostUploadPack_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},
 		{
 			StreamName:    "PostReceivePack",
-			Handler:       _BravuraService_PostReceivePack_Handler,
+			Handler:       _EscobariaService_PostReceivePack_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},
